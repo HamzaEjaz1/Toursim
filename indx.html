@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Northern Pakistan - Adventure Awaits</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #e74c3c;
+            --silver: #bdc3c7;
+            --bronze: #cd7f32;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .features-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            width: 350px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card:nth-child(1).visible {
+            transition-delay: 0.2s;
+        }
+        
+        .feature-card:nth-child(2).visible {
+            transition-delay: 0.4s;
+        }
+        
+        .feature-card:nth-child(3).visible {
+            transition-delay: 0.6s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Tours Section */
+        .tours {
+            padding: 100px 20px;
+            background: #f9f9f9;
+        }
+        
+        .tours-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 30px;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            scrollbar-width: none;
+        }
+        
+        .tours-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tour-card {
+            min-width: 300px;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .tour-card.visible {
+            opacity: 1;
+            animation: slideIn 0.8s forwards;
+        }
+        
+        .tour-card:nth-child(1).visible {
+            animation-delay: 0.2s;
+        }
+        
+        .tour-card:nth-child(2).visible {
+            animation-delay: 0.4s;
+        }
+        
+        .tour-card:nth-child(3).visible {
+            animation-delay: 0.6s;
+        }
+        
+        .tour-card:nth-child(4).visible {
+            animation-delay: 0.8s;
+        }
+        
+        .tour-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tour-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .tour-info {
+            padding: 20px;
+        }
+        
+        .tour-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .tour-info p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .tour-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .gold {
+            color: var(--primary);
+        }
+        
+        .silver {
+            color: var(--silver);
+        }
+        
+        .bronze {
+            color: var(--bronze);
+        }
+        
+        /* Package Comparison */
+        .packages {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .package-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 10px;
+            width: 350px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .package-card:nth-child(1).visible {
+            transition-delay: 0.2s;
+        }
+        
+        .package-card:nth-child(2).visible {
+            transition-delay: 0.4s;
+        }
+        
+        .package-card:nth-child(3).visible {
+            transition-delay: 0.6s;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .package-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .package-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .package-features li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .package-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+        
+        .package-card .package-cta {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            border-radius: 50px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .package-card .package-cta:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gold-card {
+            border-top: 5px solid var(--primary);
+        }
+        
+        .silver-card {
+            border-top: 5px solid var(--silver);
+        }
+        
+        .bronze-card {
+            border-top: 5px solid var(--bronze);
+        }
+        
+        /* How It Works */
+        .process {
+            padding: 100px 20px;
+            background: #f9f9f9;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            text-align: center;
+            width: 250px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+        
+        .step:nth-child(1).visible {
+            transition-delay: 0.2s;
+        }
+        
+        .step:nth-child(2).visible {
+            transition-delay: 0.4s;
+        }
+        
+        .step:nth-child(3).visible {
+            transition-delay: 0.6s;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .step p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 20px;
+            background: white;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+        
+        .testimonial-slide {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            text-align: center;
+            position: absolute;
+            width: calc(100% - 40px);
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .testimonial-slide.active {
+            opacity: 1;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Experience Carousel */
+        .experience-carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+        
+        .experience-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .experience-slide.active {
+            opacity: 1;
+        }
+        
+        .experience-content {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .experience-image {
+            flex: 1;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        /* Contact Form */
+        .contact {
+            padding: 100px 20px;
+            background: #f9f9f9;
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .contact-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+        
+        .contact-info {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .contact-details {
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .primary-cta {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .secondary-cta {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 20px 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .newsletter input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .newsletter input::placeholder {
+            color: #bbb;
+        }
+        
+        .newsletter button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        
+        .newsletter button:hover {
+            background: #2980b9;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-30px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .experience-carousel {
+                height: auto;
+                padding: 20px 0;
+            }
+            
+            .experience-slide {
+                flex-direction: column;
+                padding: 20px;
+                position: relative;
+                height: auto;
+            }
+            
+            .experience-content {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            
+            .experience-image {
+                width: 100%;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-info {
+                order: 2;
+            }
+            
+            .contact-form {
+                order: 1;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Northern Pakistan</h1>
+            <p>Experience breathtaking landscapes, rich culture, and unforgettable adventures in the heart of the Himalayas</p>
+            <a href="#tours" class="cta-button">Explore Tours</a>
+        </div>
+        <div class="scroll-down" onclick="document.querySelector('.features').scrollIntoView({ behavior: 'smooth' })">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose Us?</h2>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3>Adventure Tours</h3>
+                <p>From trekking to paragliding, we offer the most thrilling experiences with certified guides and top-notch safety equipment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Authentic Stays</h3>
+                <p>Stay in eco-friendly glamping sites or traditional homestays that give you a true taste of local culture.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Safety First</h3>
+                <p>Our verified guides and 24/7 emergency support ensure you can explore with complete peace of mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Carousel -->
+    <section class="tours">
+        <h2 class="section-title">Featured Experiences</h2>
+        <div class="experience-carousel">
+            <div class="experience-slide active">
+                <div class="experience-content">
+                    <h3>Hunza Valley Cultural Immersion</h3>
+                    <p>Discover the rich heritage of Hunza Valley with visits to ancient forts, local markets, and traditional music performances. Stay with local families and learn about their unique way of life.</p>
+                    <a href="#packages" class="cta-button">View Packages</a>
+                </div>
+                <img src="https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hunza Valley" class="experience-image">
+            </div>
+            <div class="experience-slide">
+                <div class="experience-content">
+                    <h3>Skardu Jeep Safari Adventure</h3>
+                    <p>Explore the rugged beauty of Skardu with our expert guides, visiting remote villages and breathtaking viewpoints. Experience the thrill of off-road travel through some of the most spectacular landscapes on earth.</p>
+                    <a href="#packages" class="cta-button">View Packages</a>
+                </div>
+                <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Skardu" class="experience-image">
+            </div>
+            <div class="experience-slide">
+                <div class="experience-content">
+                    <h3>Naltar Ski Resort Winter Wonderland</h3>
+                    <p>Enjoy the pristine slopes of Naltar with our all-inclusive ski packages for beginners and experts alike. Experience the magic of Pakistan's winter landscapes with cozy accommodations and professional instructors.</p>
+                    <a href="#packages" class="cta-button">View Packages</a>
+                </div>
+                <img src="https://images.unsplash.com/photo-1517299321609-52687d1bc55a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Naltar" class="experience-image">
+            </div>
+            <div class="carousel-nav">
+                <div class="carousel-dot active" onclick="showExperienceSlide(0)"></div>
+                <div class="carousel-dot" onclick="showExperienceSlide(1)"></div>
+                <div class="carousel-dot" onclick="showExperienceSlide(2)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="packages" id="packages">
+        <h2 class="section-title">Our Packages</h2>
+        <div class="package-cards">
+            <div class="package-card gold-card">
+                <h3>Gold Package</h3>
+                <div class="price gold">$999</div>
+                <ul class="package-features">
+                    <li>7-day guided tour of Hunza Valley</li>
+                    <li>Luxury accommodations</li>
+                    <li>All meals included (local cuisine)</li>
+                    <li>Private transportation</li>
+                    <li>Cultural performances</li>
+                    <li>Professional photographer</li>
+                    <li>24/7 concierge service</li>
+                </ul>
+                <a href="#contact" class="package-cta">Book Now</a>
+            </div>
+            <div class="package-card silver-card">
+                <h3>Silver Package</h3>
+                <div class="price silver">$699</div>
+                <ul class="package-features">
+                    <li>5-day guided tour of Skardu</li>
+                    <li>Comfortable hotel stays</li>
+                    <li>Breakfast and dinner included</li>
+                    <li>Shared transportation</li>
+                    <li>Cultural activities</li>
+                    <li>Group photographer</li>
+                    <li>Daily check-ins</li>
+                </ul>
+                <a href="#contact" class="package-cta">Book Now</a>
+            </div>
+            <div class="package-card bronze-card">
+                <h3>Bronze Package</h3>
+                <div class="price bronze">$399</div>
+                <ul class="package-features">
+                    <li>3-day guided tour of Naltar</li>
+                    <li>Cozy guesthouse stays</li>
+                    <li>Breakfast included</li>
+                    <li>Public transportation</li>
+                    <li>Basic cultural experience</li>
+                    <li>Self-guided photography</li>
+                    <li>Emergency support</li>
+                </ul>
+                <a href="#contact" class="package-cta">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="process">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Browse & Select</h3>
+                <p>Explore our wide range of tours and experiences tailored to different interests and skill levels.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Customize Your Trip</h3>
+                <p>Add extra activities, choose your accommodation style, and select your preferred dates.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Book & Explore</h3>
+                <p>Confirm your booking and get ready for an unforgettable adventure in Northern Pakistan!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <h2 class="section-title">What Our Travelers Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial-slide active">
+                <p class="testimonial-content">"The Hunza Valley tour was absolutely breathtaking! Our guide was knowledgeable and made sure we experienced the true culture of the region. Can't wait to come back!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="author-image">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Adventure Traveler</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <p class="testimonial-content">"As a solo female traveler, I felt completely safe throughout my journey. The team went above and beyond to ensure I had an amazing experience in Skardu."</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Emma Davis" class="author-image">
+                    <div class="author-info">
+                        <h4>Emma Davis</h4>
+                        <p>Solo Traveler</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <p class="testimonial-content">"The Naltar ski package was perfect for our family. The instructors were patient with our kids, and the scenery was out of this world. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Chen" class="author-image">
+                    <div class="author-info">
+                        <h4>Michael Chen</h4>
+                        <p>Family Traveler</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Contact Form -->
+<section class="contact" id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <p>Have questions about our tours or need help planning your adventure? Our team is here to assist you every step of the way.</p>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <p>123 Mountain View Road</p>
+                        <p>Gilgit, Northern Pakistan</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <p>+92 345 6789012</p>
+                        <p>Mon-Fri, 9am-5pm</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p>info@northernpakistantours.com</p>
+                        <p>24/7 support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-form">
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="tour">Tour Interest</label>
+                    <select id="tour">
+                        <option value="">Select a tour</option>
+                        <option value="hunza">Hunza Valley Cultural Immersion</option>
+                        <option value="skardu">Skardu Jeep Safari Adventure</option>
+                        <option value="naltar">Naltar Ski Resort</option>
+                        <option value="custom">Custom Package</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" placeholder="Tell us about your travel plans"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready for Your Adventure?</h2>
+        <p>Join hundreds of travelers who have experienced the magic of Northern Pakistan with our expert guides and carefully crafted tours.</p>
+        <div class="cta-buttons">
+            <a href="#contact" class="cta-button primary-cta">Book Your Tour</a>
+            <a href="#packages" class="cta-button secondary-cta">View Packages</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <p>Northern Pakistan Tours is dedicated to providing authentic, sustainable travel experiences in one of the most beautiful regions on earth.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#features">Why Choose Us</a></li>
+                <li><a href="#packages">Tour Packages</a></li>
+                <li><a href="#tours">Destinations</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Cancellation Policy</a></li>
+                <li><a href="#">Travel Insurance</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Newsletter</h3>
+            <div class="newsletter">
+                <input type="email" placeholder="Your email address">
+                <button type="submit">Subscribe</button>
+            </div>
+            <p>Get the latest travel updates and exclusive offers straight to your inbox.</p>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2023 Northern Pakistan Tours. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.feature-card, .tour-card, .package-card, .step, .contact-container');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on load
+        
+        // Testimonial slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-slide');
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            testimonials[index].classList.add('active');
+            currentTestimonial = index;
+        }
+        
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }
+        
+        setInterval(nextTestimonial, 5000);
+        
+        // Experience carousel
+        let currentSlide = 0;
+        const experienceSlides = document.querySelectorAll('.experience-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        function showExperienceSlide(index) {
+            experienceSlides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            experienceSlides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % experienceSlides.length;
+            showExperienceSlide(currentSlide);
+        }
+        
+        setInterval(nextSlide, 6000);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
